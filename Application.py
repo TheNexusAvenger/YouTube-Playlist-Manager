@@ -10,6 +10,7 @@ from YouTube.YouTubeTasks import YouTubeTasks
 
 if __name__ == '__main__':
     # Create the tasks.
+    print("Starting looping application.")
     tasks = YouTubeTasks()
 
     # Run the loop.
