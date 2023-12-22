@@ -92,6 +92,6 @@ class YouTubeTasks:
 
         try:
             self.updateCache()
+            self.updatePlaylists()
         except ConnectionError:
             print("Quota limit was reached. Cache can't be updated.")
-        self.updatePlaylists()
