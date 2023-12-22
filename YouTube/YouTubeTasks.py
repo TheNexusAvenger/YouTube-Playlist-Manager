@@ -99,3 +99,5 @@ class YouTubeTasks:
             self.updatePlaylists()
         except ConnectionError:
             print("Quota limit was reached. Playlists can't be fetched to add videos.")
+        except RuntimeError as e:
+            print("Unexpected error: " + str(e))

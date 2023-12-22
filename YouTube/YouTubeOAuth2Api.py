@@ -89,7 +89,7 @@ class OAuth2Handler(BaseHTTPRequestHandler):
                 # Send the error response.
                 self.send_response(500)
                 self.end_headers()
-                self.wfile.write(bytes("OAuth2 failed. Retry by going to http://localhost:8080.\n" + str(e), "utf-8"))
+                self.wfile.write(bytes("OAuth2 failed.\n" + str(e), "utf-8"))
             return
 
         # Create the redirect.
@@ -207,6 +207,8 @@ class YouTubeOAuth2Api:
         # Throw an error if the quota was reached.
         if response.status_code == 403 and "quotaExceeded" in response.text:
             raise ConnectionError("YouTube API quota exceeded.")
+        elif response.status_code != 200:
+            raise RuntimeError("Video not added to playlist (HTTP " + str(response.status_code) + "): " + response.text)
 
         # Add the video id to the playlist cache.
         print("Added video " + videoId + " to playlist " + playlistId)
