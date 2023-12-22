@@ -1,0 +1,13 @@
+services:
+  youtube-playlist-manager:
+    container_name: youtube-playlist-manager
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    environment:
+      DATA_PATH: /data
+    ports:
+      - 45982:45982
+    volumes:
+      - ./data:/data
