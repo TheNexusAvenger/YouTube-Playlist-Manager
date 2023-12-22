@@ -145,6 +145,7 @@ class YouTubePlaylistState:
         """
 
         # Build the video lists.
+        print("Building playlists.")
         self.buildVideoLists()
 
         # Add the videos to the playlist.

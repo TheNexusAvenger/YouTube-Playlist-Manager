@@ -156,7 +156,10 @@ class YouTubeCacheDatabase:
                     url += "&pageToken=" + pageToken
 
                 # Add the video ids.
-                pageData = requests.get(url).json()
+                pageDataResponse = requests.get(url)
+                pageData = pageDataResponse.json()
+                if pageDataResponse.status_code == 403 and "quotaExceeded" in pageDataResponse.text:
+                    raise ConnectionError("YouTube API quota exceeded.")
                 if "items" not in pageData.keys():
                     break
                 for item in pageData["items"]:
@@ -192,7 +195,10 @@ class YouTubeCacheDatabase:
         # Get the first 50 videos in the playlist and add them to the list.
         print("Fetching first 50 video ids for " + playlistId)
         url = "https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=" + playlistId + "&key=" + self.youTubeApiKey
-        pageData = requests.get(url).json()
+        pageDataResponse = requests.get(url)
+        pageData = pageDataResponse.json()
+        if pageDataResponse.status_code == 403 and "quotaExceeded" in pageDataResponse.text:
+            raise ConnectionError("YouTube API quota exceeded.")
         pageData["items"].reverse()
         for item in pageData["items"]:
             videoId = item["snippet"]["resourceId"]["videoId"]
