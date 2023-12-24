@@ -134,7 +134,7 @@ class YouTubeOAuth2Api:
             staticYouTubeOAuth2Api = self
 
             try:
-                self.currentServer = HTTPServer(("localhost", int(serverPort)), OAuth2Handler)
+                self.currentServer = HTTPServer(("127.0.0.1", int(serverPort)), OAuth2Handler)
                 self.currentServer.serve_forever()
             except OSError:
                 pass  # Server was closed.
