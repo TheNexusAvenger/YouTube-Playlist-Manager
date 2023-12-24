@@ -173,6 +173,7 @@ class YouTubeOAuth2Api:
         :return: Authorization header to use.
         """
 
+        self.oauth2TokenHeader = None
         try:
             return self.getAuthorizationHeader()
         except:

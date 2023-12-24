@@ -64,7 +64,6 @@ class YouTubeTasks:
         apiKey = configuration["YouTubeApiKey"]
         self.cacheDatabase = YouTubeCacheDatabase(apiKey, configuration["Caching"]["VideoCacheTime"] * 60, configuration["Caching"]["PlaylistCacheTime"] * 60, configuration["Caching"]["RollingUpdateMaxLatestVideos"], configuration["Caching"]["RollingUpdateMaxOldestVideos"])
         self.oauth2Api = YouTubeOAuth2Api(apiKey, self.cacheDatabase)
-        self.oauth2Api.initializeAuthorizationHeader()
 
     def updateCache(self) -> None:
         """Updates the playlist and video cache.
@@ -89,6 +88,8 @@ class YouTubeTasks:
     def performActions(self) -> None:
         """Performs all actions together.
         """
+
+        self.oauth2Api.initializeAuthorizationHeader()
 
         try:
             self.updateCache()
